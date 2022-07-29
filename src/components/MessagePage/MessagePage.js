@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './MessagePage.css';
 import {Input} from 'antd';
 import {SendOutlined} from '@ant-design/icons';
-import { axiosChat} from '../../helpers/axios/axios'
+import { axiosChat} from '../helpers/axios/axios'
 import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
 import {appMessage} from '../helpers';

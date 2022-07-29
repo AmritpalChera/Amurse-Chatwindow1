@@ -1,5 +1,5 @@
 
-import { axiosUser } from '../helpers/axios/axios'
+import { axiosUser } from './helpers/axios/axios'
 import React,  {
   useEffect, useState,
 } from 'react';
@@ -13,7 +13,7 @@ import './antd.css'
 export let userAddress = '';
 
 // Don't render this on mobile
-const FloatingMessageArea = (props) => {
+const ChatWindow = (props) => {
   const [chat, setChat] = useState({});
   const setChatData = (data) => setChat({ ...chat, ...data });
 
@@ -112,4 +112,4 @@ const FloatingMessageArea = (props) => {
   );
 };
 
-export default FloatingMessageArea;
+export default ChatWindow;

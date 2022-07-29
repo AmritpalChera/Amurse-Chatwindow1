@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { axiosChat, axiosUser} from '../helpers/axios/axios'
+import { axiosChat, axiosUser} from './helpers/axios/axios'
 import web3 from 'web3';
 
 
