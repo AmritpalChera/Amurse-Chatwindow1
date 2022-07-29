@@ -1,28 +1,29 @@
 
-import axios from '../../axios'
+import { axiosUser } from '../helpers/axios/axios'
 import React,  {
   useEffect, useState,
 } from 'react';
 import {TiArrowSortedDown, TiArrowSortedUp,
 } from 'react-icons/ti';
-import {appMessage, contactButtonClicked} from '../../helpers/helpers';
+import {appMessage, contactButtonClicked} from './helpers';
 import './FloatingMessageArea.css';
 import MessagePage from './MessagePage/MessagePage';
+import './antd.css'
 
-const receiverAddress = '0xCB2F82eB852D4746e744168DC5D5B2a49b524A3c';
 export let userAddress = '';
 
 // Don't render this on mobile
-const FloatingMessageArea = () => {
-  const [chat, setChat] = useState({
-    receiverAddress: receiverAddress,
-    messages: [],
-  });
+const FloatingMessageArea = (props) => {
+  const [chat, setChat] = useState({});
   const setChatData = (data) => setChat({ ...chat, ...data });
 
   useEffect(() => {
-    console.log('chat is: ', chat)
-  }, [chat])
+    setChat({
+      receiverAddress: props.receiverAddress,
+      messages: [],
+    });
+
+  }, [])
 
   const [user, setUser] = useState({});
 
@@ -40,6 +41,7 @@ const FloatingMessageArea = () => {
 
   const toggleFloat = () => {
     if (!user.address) return appMessage('Connect Wallet');
+    else if (!chat.receiverAddress) return appMessage('Service down')
     setChat({...chat, open: !chat.open});
   };
   const getHeight = () => {
@@ -68,7 +70,7 @@ const FloatingMessageArea = () => {
   }
 
   const getUser = async () => {
-    let userInfo = (await axios.post('/api/user/login', { address: user.address })).data;
+    let userInfo = (await axiosUser.post('/login', { address: user.address })).data;
     console.log('user is: ', userInfo)
     setUser(userInfo)
     //after getting user, get conversation

@@ -1,0 +1,1 @@
+"use strict";require("core-js/modules/es.object.define-property.js"),Object.defineProperty(exports,"__esModule",{value:!0}),exports.API_BASE_URL=void 0;var API_BASE_URL="http://localhost:5001";exports.API_BASE_URL="http://localhost:5001";

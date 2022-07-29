@@ -1,0 +1,19 @@
+.floatMessagePage{
+    padding: 4px;
+    padding-bottom: 12px;
+    margin-top: -12px;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.floatMessageArea {
+    /* rgb(246, 245, 245) */
+    background: -webkit-linear-gradient(250deg,white  , white, white, var(--blueWashed) );
+    padding: 8px;
+    margin-top: 4px;
+    overflow-y: scroll;
+}
+
+.floatMessageArea::-webkit-scrollbar {
+    width:0px;
+}

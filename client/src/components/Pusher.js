@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Pusher from 'pusher-js';
-import {userAddress} from '../../components/FloatingMessageArea/FloatingMessageArea';
+import { userAddress } from '.';
 
-export const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
-  cluster: 'us2',
-});
+export const pusher = new Pusher("97f25cbcbd8b4a017e8c", {cluster: 'us2'});
 
 
 const PusherLoader = ({user}) => {

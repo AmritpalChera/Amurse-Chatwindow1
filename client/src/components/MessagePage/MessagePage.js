@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './MessagePage.css';
-import {BiArrowBack} from 'react-icons/bi';
 import {Input} from 'antd';
 import {SendOutlined} from '@ant-design/icons';
-import axios from '../../../axios';
-import {pusher} from '../../../pusher/features/Pusher';
+import { axiosChat} from '../../helpers/axios/axios'
+import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
-import {appMessage} from '../../../helpers/helpers';
+import {appMessage} from '../helpers';
 
 const MessagePage = (props) => {
   const {user, chat, setChat, addChatMessage} = props;
@@ -14,15 +13,15 @@ const MessagePage = (props) => {
   const floatMessage = chat;
 
   const getMessages = async () => {
-    const messages = (await axios.post('/api/convo/getMessages',
-        {convoId: floatMessage.userConversation?.conversation?._id})).data;
+    
+    const messages = (await axiosChat.post('/getMessages',
+        {convoId: floatMessage.userConversation?._id})).data;
     setChat({messages: messages});
   };
 
   // EXISTING MESSAGES
   useEffect(() => {
     getMessages();
-
     return () => setChat({messages: [], conversation: {}});
   }, [chat.address]);
 
@@ -34,14 +33,14 @@ const MessagePage = (props) => {
   }, [newMessage]);
 
   useEffect(() => {
-    if (floatMessage.userConversation?.conversation?._id) {
+    if (floatMessage.userConversation?._id) {
       const channel = pusher.subscribe(
-          floatMessage.userConversation.conversation._id);
+          floatMessage.userConversation._id);
       channel.bind('new-message', (response) => setNewMessage(response.data));
     }
     return () => {
-      floatMessage.userConversation.conversation._id &&
-        pusher.unsubscribe(floatMessage.userConversation.conversation._id);
+      floatMessage.userConversation._id &&
+        pusher.unsubscribe(floatMessage.userConversation._id);
     };
   }, [floatMessage.userConversation]);
   // ______________________________________________________________________
@@ -63,12 +62,11 @@ const MessagePage = (props) => {
 
   const submitMessage = async () => {
     if (!message) return appMessage('No Content');
-    await axios.post('/api/convo/createMessage', {
+    await axiosChat.post('/createMessage', {
       address: user.address, text: message,
       owner: user._id,
-      convoId: floatMessage.userConversation.conversation._id,
-      receiverAddress: floatMessage.address,
-      convoIndex: floatMessage.userConversation.conversation.index,
+      convoId: floatMessage.userConversation._id,
+      convoIndex: floatMessage.userConversation.index || 0,
     });
     setMessage('');
   };
