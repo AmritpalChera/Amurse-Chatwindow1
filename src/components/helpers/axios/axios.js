@@ -5,8 +5,14 @@ import axios from 'axios';
 // const USER_BASE = process.env.NODE_ENV === 'production' ? 'https://user-dot-amurse.uk.r.appspot.com/api' : 'http://localhost:5002/api';
 
 
-const CHAT_BASE = 'http://localhost:5001';
-const USER_BASE =   'http://localhost:5002/api';
+//PRODUCTION
+const CHAT_BASE = 'https://chat-dot-amurse.uk.r.appspot.com';
+const USER_BASE = 'https://user-dot-amurse.uk.r.appspot.com/api';
+
+
+//LOCAL DEVELOPMENT
+// const CHAT_BASE = 'http://localhost:5001';
+// const USER_BASE =   'http://localhost:5002/api';
 
 
 

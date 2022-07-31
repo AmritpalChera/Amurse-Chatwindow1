@@ -1,5 +1,7 @@
 
-module.exports = {
-  mode: 'production',
-  entry: 'dist/index.js',
+module.exports = () => {
+  return {
+    mode: 'production',
+    entry: 'dist/index.js',
+  }
 }
