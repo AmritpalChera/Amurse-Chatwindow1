@@ -13,7 +13,7 @@ import './antd.css'
 export let userAddress = '';
 
 // Don't render this on mobile
-const ChatWindow = (props) => {
+export const ChatWindow = (props) => {
   const [chat, setChat] = useState({});
   const setChatData = (data) => setChat({ ...chat, ...data });
 
@@ -23,7 +23,7 @@ const ChatWindow = (props) => {
       messages: [],
     });
 
-  }, [])
+  }, [props.receiverAddress])
 
   const [user, setUser] = useState({});
 
@@ -62,6 +62,7 @@ const ChatWindow = (props) => {
 
   useEffect(() => {
     handleAccounts();
+    // eslint-disable-next-line
   }, []);
 
   
@@ -80,6 +81,7 @@ const ChatWindow = (props) => {
 
   useEffect(() => {
     if (user.address) getUser()
+    // eslint-disable-next-line
   }, [user.address])
 
 

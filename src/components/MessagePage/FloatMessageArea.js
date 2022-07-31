@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import { Avatar } from 'antd';
 import './FloatMessageArea.css'
-// import {ENDPOINT_MEDIA_DOWNLOAD} from '../routes';
 import {UserOutlined} from '@ant-design/icons';
 
 const FloatMessageArea = (props) => {

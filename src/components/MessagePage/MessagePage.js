@@ -22,7 +22,8 @@ const MessagePage = (props) => {
   // EXISTING MESSAGES
   useEffect(() => {
     getMessages();
-    return () => setChat({messages: [], conversation: {}});
+    return () => setChat({ messages: [], conversation: {} });
+    // eslint-disable-next-line
   }, [chat.address]);
 
   // PUSHER - NEW MESSAGES
@@ -30,6 +31,7 @@ const MessagePage = (props) => {
   useEffect(() => {
     newMessage.message && newMessage.message._id &&
       addChatMessage(newMessage);
+    // eslint-disable-next-line
   }, [newMessage]);
 
   useEffect(() => {
