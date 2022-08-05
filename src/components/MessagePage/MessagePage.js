@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './MessagePage.css';
 import {Input} from 'antd';
 import {SendOutlined} from '@ant-design/icons';
-import { axiosChat} from '../helpers/axios/axios'
+import { amurseNPM_axiosChat} from '../helpers/axios/axios'
 import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
 import {appMessage} from '../helpers';
@@ -14,7 +14,7 @@ const MessagePage = (props) => {
 
   const getMessages = async () => {
     
-    const messages = (await axiosChat.post('/getMessages',
+    const messages = (await amurseNPM_axiosChat.post('/getMessages',
         {convoId: floatMessage.userConversation?._id})).data;
     setChat({messages: messages});
   };
@@ -64,7 +64,7 @@ const MessagePage = (props) => {
 
   const submitMessage = async () => {
     if (!message) return appMessage('No Content');
-    await axiosChat.post('/createMessage', {
+    await amurseNPM_axiosChat.post('/createMessage', {
       address: user.address, text: message,
       owner: user._id,
       convoId: floatMessage.userConversation._id,

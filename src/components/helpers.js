@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { axiosChat, axiosUser} from './helpers/axios/axios'
+import { amurseNPM_axiosChat, axiosUser} from './helpers/axios/axios'
 import web3 from 'web3';
 
 
@@ -28,19 +28,15 @@ export const formattedWalletAddress = (address) => {
 };
 
 export const contactButtonClicked = async (data, setChat) => {
-  const {senderAddress, receiverAddress} = data;
-
-  if (!receiverAddress) return appError('User address not found');
+  const { senderAddress, receiverAddress } = data;
+  if (!receiverAddress) return;
   if (!senderAddress) return appMessage('Connect Wallet');
-  if (!web3.utils.isAddress(receiverAddress)) return appError('Invalid Address');
   if (senderAddress.toLowerCase() === receiverAddress.toLowerCase()) return appMessage('Can\'t message yourself');
-
-  let conversation = (await axiosChat.post('/getConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress})).data;
-  if (!conversation) conversation = (await axiosChat.post('/createConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress})).data;
+  let conversation = (await amurseNPM_axiosChat.post('/getConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress})).data;
+  if (!conversation) conversation = (await amurseNPM_axiosChat.post('/createConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress})).data;
   if (conversation) setChat({ address: receiverAddress, page: 'messagepage', userConversation: conversation });
     
 
   else appError('Something went wrong');
-  console.log(conversation)
 };
 

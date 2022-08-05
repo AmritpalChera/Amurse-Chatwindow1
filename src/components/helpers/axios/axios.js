@@ -6,14 +6,14 @@ import axios from 'axios';
 
 
 //PRODUCTION
-const CHAT_BASE = 'https://chat-dot-amurse.uk.r.appspot.com';
-const USER_BASE = 'https://user-dot-amurse.uk.r.appspot.com/api';
+// const CHAT_BASE = 'https://chat-dot-amurse.uk.r.appspot.com';
+// const USER_BASE = 'https://user-dot-amurse.uk.r.appspot.com/api';
 
 
 //LOCAL DEVELOPMENT
-// const CHAT_BASE = 'http://localhost:5001';
-// const USER_BASE =   'http://localhost:5002/api';
-
+const CHAT_BASE = 'http://localhost:5001';
+const USER_BASE =   'http://localhost:5002/api';
+const ACCESS_BASE = 'http://localhost:5003'
 
 
 const instanceCreater = (baseUrl) => {
@@ -29,5 +29,6 @@ const instanceCreater = (baseUrl) => {
 
 
 
-export const axiosChat = instanceCreater(CHAT_BASE);
+export const amurseNPM_axiosChat = instanceCreater(CHAT_BASE);
 export const axiosUser = instanceCreater(USER_BASE);
+export const axiosAccess = instanceCreater(ACCESS_BASE);

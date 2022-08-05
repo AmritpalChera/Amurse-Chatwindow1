@@ -1,31 +1,38 @@
 
-import { axiosUser } from './helpers/axios/axios'
+import { axiosAccess, axiosUser } from './helpers/axios/axios'
 import React,  {
   useEffect, useState,
 } from 'react';
 import {TiArrowSortedDown, TiArrowSortedUp,
 } from 'react-icons/ti';
-import {appMessage, contactButtonClicked} from './helpers';
+import {appError, appMessage, contactButtonClicked} from './helpers';
 import './FloatingMessageArea.css';
 import MessagePage from './MessagePage/MessagePage';
 import './antd.css'
-
+import Web3 from 'web3';
 export let userAddress = '';
 
 // Don't render this on mobile
 export const ChatWindow = (props) => {
-  const [chat, setChat] = useState({});
+  const [chat, setChat] = useState({
+    messages: []
+  });
   const setChatData = (data) => setChat({ ...chat, ...data });
+  const [user, setUser] = useState({});
+  const ethereum = window.ethereum;
+
+
+  const validateToken = async () => {
+    let tokenAddress = await axiosAccess.post('/validateToken', { token: props.receiverToken });
+    if (tokenAddress.data) setChat({ ...chat, receiverAddress: tokenAddress.data });
+    else appError("Couldn't validate token");
+  }
 
   useEffect(() => {
-    setChat({
-      receiverAddress: props.receiverAddress,
-      messages: [],
-    });
+    validateToken();
+  }, [props.receiverToken])
 
-  }, [props.receiverAddress])
 
-  const [user, setUser] = useState({});
 
   // message methods
 
@@ -49,21 +56,47 @@ export const ChatWindow = (props) => {
     return '48px';
   };
 
-  const handleAccounts = async () => {
-    const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
-    setUser({...user, address: accounts[0]});
-    userAddress = accounts[0];
-    window.ethereum.on('accountsChanged', function(accounts) {
-      // Time to reload your interface with accounts[0]!
-      setUser({...user, address: accounts[0]});
-      userAddress = accounts[0];
-    });
-  };
+
+  const clearUserData = () => {
+    setUser({})
+    setChat({ open: false})
+  }
 
   useEffect(() => {
-    handleAccounts();
+    if (ethereum) {
+      ethereum.on('accountsChanged', (accounts) => {
+        setUser({...user, address: accounts[0]});
+        if (!accounts[0]) clearUserData();
+      });
+     
+    }
+    ethereum.on('disconnect', () => {
+      clearUserData()
+    });
     // eslint-disable-next-line
+  }, [ethereum]);
+
+
+  const connectMetamaskSilently = async () => {
+    if (window.ethereum) {
+      window.web3 = new Web3(ethereum);
+      const web3 = window.web3;
+      const networkId = await window.web3.eth.getChainId();
+      let accounts;
+      await web3.eth.getAccounts((err, result) => {
+        if (err) return console.log(err)
+        accounts = result;
+      });
+      if (!networkId || !accounts[0]) return null;
+      setUser({ ...user, address: accounts[0] });
+    }
+    return null;
+  }
+
+  useEffect(() => {
+    connectMetamaskSilently();
   }, []);
+
 
   
   const getConversation = () => {
@@ -72,12 +105,10 @@ export const ChatWindow = (props) => {
 
   const getUser = async () => {
     let userInfo = (await axiosUser.post('/login', { address: user.address })).data;
-    console.log('user is: ', userInfo)
     setUser(userInfo)
     //after getting user, get conversation
     getConversation();
   }
-
 
   useEffect(() => {
     if (user.address) getUser()

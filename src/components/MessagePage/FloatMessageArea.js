@@ -71,6 +71,9 @@ const FloatMessageArea = (props) => {
         {
           messages.map((message, index) => getFormattedMessage(message, index))
         }
+        {
+          messages.length === 0 && <h4 className='gray'>Send your first text...</h4>
+        }
         <AlwaysScrollToBottom/>
       </div>
     </div>

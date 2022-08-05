@@ -1,13 +1,24 @@
+import { Button } from 'antd';
 import React from 'react';
 import './App.css';
 
 
 import FloatingMessageArea from './components/index';
 
-const receiverAddress = '0xCB2F82eB852D4746e744168DC5D5B2a49b524A3c';
+const token = "$2b$10$j1ncsKa23/.vY/4uAvd4UeGXQBWYREHqQvLMm/KMs.pTUtKm4ZOee";
 function App() {
+
+  const handleAccounts = async () => {
+    await window.ethereum.request({method: 'eth_requestAccounts'});
+  };
+
+
   return ( 
-    <FloatingMessageArea receiverAddress={receiverAddress}/>
+    <div>
+      <Button type="primary" onClick={handleAccounts}>Connect</Button>
+      <FloatingMessageArea  receiverToken={token} />
+    </div>
+ 
   );
 }
 
