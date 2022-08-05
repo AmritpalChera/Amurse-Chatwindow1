@@ -131,7 +131,7 @@ export const ChatWindow = (props) => {
                             <TiArrowSortedDown onClick={toggleFloat} className='textBig hover '/>
             }
           </div>
-          {chat.userConversation && chat.messages && <MessagePage
+          {chat.userConversation && <MessagePage
             addChatMessage={addChatMessage}
             chat={chat}
             setChat={setChatData}

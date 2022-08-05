@@ -1,6 +1,6 @@
 {
   "name": "amurse-chatwindow-basic",
-  "version": "0.0.27",
+  "version": "0.0.29",
   "description": "frontend chat window for Amurse",
   "private": false,
   "files": [

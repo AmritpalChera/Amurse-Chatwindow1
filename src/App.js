@@ -5,7 +5,7 @@ import './App.css';
 
 import FloatingMessageArea from './components/index';
 
-const token = "$2b$10$j1ncsKa23/.vY/4uAvd4UeGXQBWYREHqQvLMm/KMs.pTUtKm4ZOee";
+const token = "OFNjOZRNzb0934yd6Ir8xabEo9Ytr07Kg8oM5vaT0VTLzxlIs7HA0E6CsOSn";
 function App() {
 
   const handleAccounts = async () => {
