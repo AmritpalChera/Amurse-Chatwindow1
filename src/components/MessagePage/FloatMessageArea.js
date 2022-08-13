@@ -2,13 +2,13 @@ import React, {useEffect, useRef} from 'react';
 import { Avatar } from 'antd';
 import './FloatMessageArea.css'
 import {UserOutlined} from '@ant-design/icons';
+import { formattedWalletAddress } from '../helpers';
 
 const FloatMessageArea = (props) => {
   const {chat, user} = props;
-  const floatArea = chat;
-  const messages = floatArea.messages;
+  const messages = chat.messages;
 
-  const targetInfo = floatArea.userConversation?.recepientAddresses[0];
+  const targetInfo = chat.reveiverAddress;
 
   const AlwaysScrollToBottom = () => {
     const elementRef = useRef();
@@ -21,12 +21,11 @@ const FloatMessageArea = (props) => {
     let displayName;
     if (message.address === (user.address)) {
       messageAvatar = user.profilePicture;
-      displayName = user.username;
+      displayName = formattedWalletAddress(user.address);
     } else {
-      messageAvatar = targetInfo.user?.profilePicture;
-      displayName = targetInfo.user?.username || 'Anonymous';
+      displayName = formattedWalletAddress(chat.receiverAddress);
     }
-    const date = new Date(message.created_at).toLocaleTimeString();
+    let date = new Date(message.created_at).toLocaleTimeString('en-us', {hour: "2-digit", minute: '2-digit'});
 
     let previousMessageDate;
     if (index > 0) {
@@ -51,7 +50,6 @@ const FloatMessageArea = (props) => {
               <span className="messageDivHeaderTime">{date}</span>
             </div>
             <div className="messageDivContent">
-              {/* {parse(message.text)} */}
               {message.text}
             </div>
           </div>
