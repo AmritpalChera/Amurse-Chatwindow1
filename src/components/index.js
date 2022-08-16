@@ -68,11 +68,11 @@ export const ChatWindow = (props) => {
         setUser({...user, address: accounts[0]});
         if (!accounts[0]) clearUserData();
       });
-     
+
+      ethereum.on('disconnect', () => {
+        clearUserData()
+      }); 
     }
-    ethereum.on('disconnect', () => {
-      clearUserData()
-    });
     // eslint-disable-next-line
   }, [ethereum]);
 
