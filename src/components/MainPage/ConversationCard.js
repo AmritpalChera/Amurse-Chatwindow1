@@ -13,7 +13,6 @@ const ConversationCard = (props) => {
 
   const setReceiverAddress = () => {
     const receiverAddresses = convo.recepientAddresses.filter((address) => address !== userAddress);
-    console.log('setting receiver address')
     receiverAddresses && setChatData({receiverAddress: convoTarget, userConversation: {_id: convo._id}})
   }
 
