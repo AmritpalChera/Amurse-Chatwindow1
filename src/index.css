@@ -16,8 +16,8 @@ code {
   width: 100% !important;
 }
 
-.blueAvatar{
-  background-color: var(--blue)
+.borderRadius {
+  border-radius: 12px;
 }
 
 .ant-scrolling-effect{
@@ -76,6 +76,14 @@ code {
   user-select: none;
 }
 
+.hover {
+  cursor: pointer;
+}
+
+.hover:hover {
+  background-color: rgb(243, 243, 243);
+}
+
 .red{
   color: var(--red);
 }
@@ -112,6 +120,14 @@ code {
   padding: 8px;
 }
 
+.padHorSmall {
+  padding: 0px 12px;
+}
+
+.padHorMed {
+  padding: 0px 24px;
+}
+
 .margin4{
   margin: 4px;
 }
@@ -140,22 +156,22 @@ code {
   flex: 1;
 }
 
-.justify-center{
+.justifyCenter{
   justify-content: center;
 }
 
-.justify-spaced{
+.justifySpaced{
   justify-content: space-between;
 }
 
-.justify-evenly {
+.justifyEvenly {
   justify-content: space-evenly;
 }
 .justify-end{
   justify-content: end;
 }
 
-.align-center{
+.alignCenter{
   align-items: center;
 }
 

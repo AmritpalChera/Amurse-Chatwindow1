@@ -17,3 +17,10 @@
 .floatMessageArea::-webkit-scrollbar {
     width:0px;
 }
+
+.mainPageHeader_amurse{
+  display: flex;
+  justify-content: end;
+  font-weight: bold;
+  color: var(--blue);
+}

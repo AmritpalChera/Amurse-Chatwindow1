@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import { amurseNPM_axiosChat, axiosUser} from './helpers/axios/axios'
-import web3 from 'web3';
+import Web3 from 'web3';
 
 
 export function openInNewTab(url) {
@@ -17,7 +17,6 @@ export const appError = (msg) => {
 
 export const disconnectUser = async () => {
   await axiosUser.post('/api/user/logoutUser');
-  window.location.href = '/';
 };
 
 export const formattedWalletAddress = (address) => {
@@ -27,16 +26,15 @@ export const formattedWalletAddress = (address) => {
   return (`${first}...${second}`);
 };
 
-export const contactButtonClicked = async (data, setChat) => {
+
+export const contactButtonClicked = async (data, setChat, user) => {
   const { senderAddress, receiverAddress } = data;
   if (!receiverAddress) return;
   if (!senderAddress) return appMessage('Connect Wallet');
   if (senderAddress.toLowerCase() === receiverAddress.toLowerCase()) return appMessage('Can\'t message yourself');
-  let conversation = (await amurseNPM_axiosChat.post('/getConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress})).data;
-  if (!conversation) conversation = (await amurseNPM_axiosChat.post('/createConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress})).data;
-  if (conversation) setChat({ address: receiverAddress, page: 'messagepage', userConversation: conversation });
-    
-
+  let conversation = (await amurseNPM_axiosChat.post('/getConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress, signature: user.signature})).data;
+  if (!conversation) conversation = (await amurseNPM_axiosChat.post('/createConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress, signature: user.signature})).data;
+  if (conversation) setChat({ receiverAddress: receiverAddress, userConversation: conversation });
   else appError('Something went wrong');
 };
 

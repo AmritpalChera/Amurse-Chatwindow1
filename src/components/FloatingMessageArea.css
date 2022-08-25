@@ -153,9 +153,6 @@
   width: 100% !important;
 }
 
-.blueAvatar{
-  background-color: var(--blue)
-}
 
 .ant-scrolling-effect{
   overflow: visible !important;
@@ -211,6 +208,10 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.borderRadius {
+  border-radius: 12px;
 }
 
 .red{
@@ -277,22 +278,22 @@
   flex: 1;
 }
 
-.justify-center{
+.justifyCenter{
   justify-content: center;
 }
 
-.justify-spaced{
+.justifySpaced{
   justify-content: space-between;
 }
 
-.justify-evenly {
+.justifyEvenly {
   justify-content: space-evenly;
 }
 .justify-end{
   justify-content: end;
 }
 
-.align-center{
+.alignCenter{
   align-items: center;
 }
 

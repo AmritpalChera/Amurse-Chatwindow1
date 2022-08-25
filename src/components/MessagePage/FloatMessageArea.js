@@ -6,7 +6,7 @@ import { formattedWalletAddress } from '../helpers';
 
 const FloatMessageArea = (props) => {
   const {chat, user} = props;
-  const messages = chat.messages;
+  const messages = chat.userConversation?.messages;
 
   const targetInfo = chat.reveiverAddress;
 
@@ -32,7 +32,7 @@ const FloatMessageArea = (props) => {
       previousMessageDate = new Date(messages[index - 1].created_at)
           .toDateString();
     }
-    const thisMessageDate = new Date(message.created_at).toDateString();
+    const thisMessageDate = message.created_at && new Date(message.created_at).toDateString();
 
     return (
       <div className="messageContainer" key={index}>
@@ -67,10 +67,10 @@ const FloatMessageArea = (props) => {
       <div className='floatMessageAreaHeader'></div>
       <div className='flex1 flex flexCol justify-end'>
         {
-          messages.map((message, index) => getFormattedMessage(message, index))
+          messages && messages.map((message, index) => getFormattedMessage(message, index))
         }
         {
-          messages.length === 0 && <h4 className='gray'>Send your first text...</h4>
+          messages && messages.length === 0 && <h4 className='gray'>Send your first text...</h4>
         }
         <AlwaysScrollToBottom/>
       </div>

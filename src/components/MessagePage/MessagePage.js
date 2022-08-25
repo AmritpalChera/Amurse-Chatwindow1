@@ -5,26 +5,48 @@ import {SendOutlined} from '@ant-design/icons';
 import { amurseNPM_axiosChat} from '../helpers/axios/axios'
 import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
-import {appMessage} from '../helpers';
+import { appError, contactButtonClicked } from '../helpers';
 
 const MessagePage = (props) => {
-  const {user, chat, setChat, addChatMessage} = props;
+  const { user, chat, setChatData, interCom } = props;
   const [message, setMessage] = useState();
-  const floatMessage = chat;
+
+  const getConversation = () => {
+    contactButtonClicked({senderAddress: user.address, receiverAddress: chat.receiverAddress}, setChatData, user)
+  }  
+
+  const addChatMessage = (data) => {
+    const {message} = data;
+    const messages = chat.userConversation?.messages;
+    messages.push(message);
+    setChatData({...chat, userConversation: {...chat.userConversation, messages: messages}});
+  };
 
   const getMessages = async () => {
-    
+    if (!chat.userConversation?._id) {
+      appError('something went wrong')
+      return;
+    }
     const messages = (await amurseNPM_axiosChat.post('/getMessages',
-        {convoId: floatMessage.userConversation?._id})).data;
-    setChat({messages: messages});
+      { convoId: chat.userConversation?._id })).data;
+    const userConvo = { ...chat.userConversation, messages: messages }
+    let newChat = chat;
+    newChat.userConversation = userConvo;
+      setChatData(newChat);
   };
 
   // EXISTING MESSAGES
   useEffect(() => {
-    getMessages();
-    return () => setChat({ messages: [], conversation: {} });
+    if (!chat.userConversation?._id) {
+      getConversation();
+    };
+    return () => setChatData({ receiverAddress: null, userConversation: {} });
     // eslint-disable-next-line
-  }, [chat.address]);
+  }, [chat.receiverAddress]);
+
+  useEffect(() => {
+    if (chat.userConversation?._id) getMessages();
+  }, [chat.userConversation && chat.userConversation._id])
 
   // PUSHER - NEW MESSAGES
   const [newMessage, setNewMessage] = useState({});
@@ -35,40 +57,38 @@ const MessagePage = (props) => {
   }, [newMessage]);
 
   useEffect(() => {
-    if (floatMessage.userConversation?._id) {
+    if (chat.userConversation?._id) {
       const channel = pusher.subscribe(
-          floatMessage.userConversation._id);
+          chat.userConversation._id);
       channel.bind('new-message', (response) => setNewMessage(response.data));
     }
     return () => {
-      floatMessage.userConversation._id &&
-        pusher.unsubscribe(floatMessage.userConversation._id);
+      chat.userConversation?._id &&
+        pusher.unsubscribe(chat.userConversation._id);
     };
-  }, [floatMessage.userConversation]);
+  }, [chat.userConversation]);
   // ______________________________________________________________________
 
 
-  const returnToMain = () => setChat({page: 'mainpage'});
-
+  const returnToMain = () => setChatData({ receiverAddress: '' });
 
   const header = () => {
     return (
       <div className='flex'>
-        <div onClick={returnToMain}
-          className='flex align-center hover blue bold'>
-          {/* <BiArrowBack className='margin4right' /> Return */}
-        </div>
+        {!interCom && <div onClick={returnToMain}
+          className='hover mainPageHeader_amurse'>
+           Return
+        </div>}
       </div>
     );
   };
 
   const submitMessage = async () => {
-    if (!message) return appMessage('No Content');
     await amurseNPM_axiosChat.post('/createMessage', {
       address: user.address, text: message,
       owner: user._id,
-      convoId: floatMessage.userConversation._id,
-      convoIndex: floatMessage.userConversation.index || 0,
+      convoId: chat.userConversation._id,
+      convoIndex: chat.userConversation.index || 0,
     });
     setMessage('');
   };
@@ -80,10 +100,12 @@ const MessagePage = (props) => {
           value={message}
           onChange={(e)=>setMessage(e.target.value)}
           onPressEnter={submitMessage}
+          maxLength={500}
           block="true"
           suffix={<SendOutlined
-            className='hover' onClick={submitMessage}
-            style={{color: 'var(--blue)'}} />}
+  
+            className='hover' onClick={() => message && submitMessage()}
+            style={{ color: message? 'var(--blue)' : 'gray'}} />}
           placeholder="Enter message..."
         />
       </div>

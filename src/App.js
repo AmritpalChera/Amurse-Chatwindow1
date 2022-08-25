@@ -16,7 +16,7 @@ function App() {
   return ( 
     <div>
       <Button type="primary" onClick={handleAccounts}>Connect</Button>
-      <FloatingMessageArea  receiverToken={token} />
+      <FloatingMessageArea  receiverToken={token} interCom={false} />
     </div>
  
   );
