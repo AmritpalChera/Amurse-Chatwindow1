@@ -63,14 +63,14 @@ const FloatMessageArea = (props) => {
 
 
   return (
-    <div className='floatMessageArea flex1 flex flexCol'>
+    <div className='floatMessageArea amurse_flex1 amurse_flex amurse_flexCol'>
       <div className='floatMessageAreaHeader'></div>
-      <div className='flex1 flex flexCol justify-end'>
+      <div className='amurse_flex1 amurse_flex amurse_flexCol amurse_justifyEnd'>
         {
           messages && messages.map((message, index) => getFormattedMessage(message, index))
         }
         {
-          messages && messages.length === 0 && <h4 className='gray'>Send your first text...</h4>
+          messages && messages.length === 0 && <h4 className='amurse_gray'>Send your first text...</h4>
         }
         <AlwaysScrollToBottom/>
       </div>

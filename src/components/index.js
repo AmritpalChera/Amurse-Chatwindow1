@@ -5,10 +5,12 @@ import React,  {
 } from 'react';
 import {TiArrowSortedDown, TiArrowSortedUp,
 } from 'react-icons/ti';
-import {appError, appMessage, contactButtonClicked} from './helpers';
+import { appError, appMessage } from './helpers';
+import './antd.css';
 import './FloatingMessageArea.css';
-import './antd.css'
-import Web3 from 'web3';
+
+
+
 import MainPage from './MainPage/MainPage';
 import MessagePage from './MessagePage/MessagePage'
 import ConnectWallet, { connectSilentlyMetamask } from './Connect/ConnectWallet';
@@ -77,8 +79,8 @@ export const ChatWindow = (props) => {
   const ToggleButton = () => {
     return (
       <div>
-        {!chat.open ? <TiArrowSortedUp onClick={toggleFloat} className='textBig hover' /> :
-            <TiArrowSortedDown onClick={toggleFloat} className='textBig hover '/>
+        {!chat.open ? <TiArrowSortedUp onClick={toggleFloat} className='amurse_textBig amurse_hover' /> :
+            <TiArrowSortedDown onClick={toggleFloat} className='amurse_textBig amurse_hover '/>
          }
       </div>
     )
@@ -96,11 +98,11 @@ export const ChatWindow = (props) => {
       <div className="floatingMessageArea" style={{height: getHeight()}}>
         <div className="floatingMessageAreaContent">
 
-          <div className='flex width100 alignCenter'>
-            <div className='flex align-center flex1 textBig bold blue padding8' onClick={toggleFloat}>
+          <div className='amurse_flex amurse_width100 amurse_alignCenter'>
+            <div className='amurse_flex amurse_alignCenter amurse_flex1 amurse_textBig amurse_bold amurse_blue amurse_padding8' onClick={toggleFloat}>
                             Messages
             </div>
-            <div className='padHorSmall'><ToggleButton /></div>
+            <div className='amurse_padHorSmall'><ToggleButton /></div>
             
             <ConnectWallet setUserData={setUserData} setChatData={setChatData} />
           </div>

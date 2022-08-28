@@ -30,7 +30,7 @@ const MainPage = (props) => {
   }, [user._id]);
 
   const NoConversations = () => (
-    <div className='blue bold textMed'>
+    <div className='amurse_blue amurse_bold amurse_textMed'>
             No Conversations
     </div>
   );
@@ -44,7 +44,7 @@ const MainPage = (props) => {
 
 
   return (
-    <div className='floatMessage padding8'>
+    <div className='floatMessage amurse_padding8'>
 
       <div className='addressInput'>
         <Input
@@ -52,7 +52,7 @@ const MainPage = (props) => {
           maxLength={500}
           disabled={!user.signature}
           onChange={(e)=>setNewAddress(e.target.value)}
-          suffix={<SearchOutlined className='hover' style={{ color: newAddress? 'var(--blue)': 'gray' }} onClick={searchConversation} />}
+          suffix={<SearchOutlined className='amurse_hover' style={{ color: newAddress? 'var(--amurse_blue)': 'amurse_gray' }} onClick={searchConversation} />}
           placeholder="ETH address..."
           onPressEnter={searchConversation}
         />

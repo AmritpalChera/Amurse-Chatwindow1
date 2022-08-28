@@ -28,18 +28,18 @@ const ConversationCard = (props) => {
   const displayName = formattedWalletAddress(convoTarget);
 
     return (
-      <div className="floatConvocardItem unselectable hover" onClick={() => { setReceiverAddress() }}>
-            <div className="flex width100 hover hoverSelect">
+      <div className="floatConvocardItem amurse_unselectable amurse_hover" onClick={() => { setReceiverAddress() }}>
+            <div className="amurse_flex amurse_width100 amurse_hover hoverSelect">
                 <div className="convoCardAvatar">
                     <Avatar style={{ backgroundColor: 'white' }} size={32} icon={<UserOutlined style={{ color: 'black'}}/>} />
                 </div>
-                <div className="floatConvocardContent hover width100">
-                    <div className="flex justifySpaced align-center">
-                        <span className='textMed text500'>{displayName}</span>
-                        <span className="textMed gray">{month[date.getMonth()]} {date.getDate() }</span>
+                <div className="floatConvocardContent amurse_hover amurse_width100">
+                    <div className="amurse_flex amurse_justifySpaced amurse_alignCenter">
+                        <span className='amurse_textMed amurse_text500'>{displayName}</span>
+                        <span className="amurse_textMed amurse_gray">{month[date.getMonth()]} {date.getDate() }</span>
                     </div>
-                    <div className="floatConvocardAddress gray">{convoTarget.address}</div> 
-                    <div className="textSmall text500 gray">{convo.recentMessage}</div>   
+                    <div className="floatConvocardAddress amurse_gray">{convoTarget.address}</div> 
+                    <div className="textSmall amurse_text500 amurse_gray">{convo.recentMessage}</div>   
                 </div>
             </div>
         </div>

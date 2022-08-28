@@ -74,9 +74,9 @@ const MessagePage = (props) => {
 
   const header = () => {
     return (
-      <div className='flex'>
+      <div className='amurse_flex'>
         {!interCom && <div onClick={returnToMain}
-          className='hover mainPageHeader_amurse'>
+          className='amurse_hover mainPageHeader amurse_blue amurse_bold'>
            Return
         </div>}
       </div>
@@ -104,8 +104,8 @@ const MessagePage = (props) => {
           block="true"
           suffix={<SendOutlined
   
-            className='hover' onClick={() => message && submitMessage()}
-            style={{ color: message? 'var(--blue)' : 'gray'}} />}
+            className='amurse_hover' onClick={() => message && submitMessage()}
+            style={{ color: message? 'var(--amurse_blue)' : 'amurse_gray'}} />}
           placeholder="Enter message..."
         />
       </div>
@@ -113,7 +113,7 @@ const MessagePage = (props) => {
   };
 
   return (
-    <div className='floatMessagePage flex flexCol'>
+    <div className='floatMessagePage amurse_flex amurse_flexCol'>
       {header()}
       <FloatMessageArea chat={chat} user={user}/>
       {createMessage()}

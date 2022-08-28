@@ -8,7 +8,7 @@
 
 .floatMessageArea {
     /* rgb(246, 245, 245) */
-    background: -webkit-linear-gradient(250deg,white  , white, white, var(--blueWashed) );
+    background: -webkit-linear-gradient(250deg,white  , white, white, var(--amurse_blueWashed) );
     padding: 8px;
     margin-top: 4px;
     overflow-y: scroll;
@@ -21,6 +21,6 @@
 .mainPageHeader_amurse{
   display: flex;
   justify-content: end;
-  font-weight: bold;
-  color: var(--blue);
+  font-weight: amurse_bold;
+  color: var(--amurse_blue);
 }

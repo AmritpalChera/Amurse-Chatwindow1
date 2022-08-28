@@ -1,6 +1,6 @@
 {
-  "name": "amurse-chatwindow-basic",
-  "version": "0.0.34",
+  "name": "@amurse/chatwindow",
+  "version": "0.0.4",
   "description": "frontend chat window for Amurse",
   "private": false,
   "files": [
@@ -65,7 +65,7 @@
   "module": "dist/index.js",
   "main": "dist/index.js",
   "author": {
-    "name": "Amurse"
+    "name": "amritpal chera"
   },
   "type": "module"
 }
