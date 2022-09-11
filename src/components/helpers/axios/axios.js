@@ -1,19 +1,14 @@
 import axios from 'axios';
-// import { appError } from '../functions/general';
-
-// const CHAT_BASE = process.env.NODE_ENV === 'production' ? 'https://chat-dot-amurse.uk.r.appspot.com' : 'http://localhost:5001';
-// const USER_BASE = process.env.NODE_ENV === 'production' ? 'https://user-dot-amurse.uk.r.appspot.com/api' : 'http://localhost:5002/api';
-
 
 //PRODUCTION
-const CHAT_BASE = 'https://chat-dot-amurse.uk.r.appspot.com';
-const USER_BASE = 'https://user-dot-amurse.uk.r.appspot.com/api';
-const ACCESS_BASE = "https://access-dot-amurse.uk.r.appspot.com";
+// const CHAT_BASE = 'https://chat-dot-amurse.uk.r.appspot.com';
+// const USER_BASE = 'https://user-dot-amurse.uk.r.appspot.com/api';
+// const ACCESS_BASE = "https://access-dot-amurse.uk.r.appspot.com";
 
 //LOCAL DEVELOPMENT
-// const CHAT_BASE = 'http://localhost:5001';
-// const USER_BASE =   'http://localhost:5002/api';
-// const ACCESS_BASE = 'http://localhost:5003'
+const CHAT_BASE = 'http://localhost:5001';
+const USER_BASE =   'http://localhost:5002/api';
+const ACCESS_BASE = 'http://localhost:5003';
 
 
 const instanceCreater = (baseUrl) => {

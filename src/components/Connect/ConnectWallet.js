@@ -9,7 +9,7 @@ export const validateAddressEthereum = async (address) => {
 
 // if metamask already connected, return updated account
 export const connectSilentlyMetamask = async (setUserData, errorHandler) => {
-  if (window.ethereum) {
+  if (window && window.ethereum) {
     window.web3 = new Web3(window.ethereum);
     const web3 = window.web3;
     const networkId = await window.web3.eth.getChainId();
@@ -47,7 +47,9 @@ const ConnectWallet = (props) => {
     // eslint-disable-next-line
   }, [ethereum]);
   return (
-    <div></div>
+    <div>
+      <span></span>
+    </div>
   )
 }
 

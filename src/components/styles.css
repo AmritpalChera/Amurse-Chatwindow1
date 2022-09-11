@@ -10,6 +10,427 @@
 /* stylelint-disable no-duplicate-selectors */
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
+
+/* MAIN PAGE */
+.floatMessage{
+  padding: 0px 8px 0px 8px;
+}
+
+
+.recentConvos{
+  margin-top: 16px;
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.recentConvos::-webkit-scrollbar {
+  width: 0px;
+}
+
+.floatConvocardItem{
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--amurse_blueWashed);
+}
+
+.floatConvocardAddress {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: small;
+  margin: -4px 0px 0px 0px;
+}
+
+/* MESSAGE PAGE */
+.floatMessagePage{
+  padding: 4px;
+  padding-bottom: 12px;
+  margin-top: -12px;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.floatMessageArea {
+  /* rgb(246, 245, 245) */
+  background: -webkit-linear-gradient(250deg,white  , white, white, var(--amurse_blueWashed) );
+  padding: 8px;
+  margin-top: 4px;
+  overflow-y: scroll;
+}
+
+.floatMessageArea::-webkit-scrollbar {
+  width:0px;
+}
+
+.mainPageHeader_amurse{
+display: flex;
+justify-content: flex-end;
+font-weight: amurse_bold;
+color: var(--amurse_blue);
+}
+
+/* FLOAR MESSAGE AREA */
+.messagesContainer{
+  overflow: scroll;
+  flex: 1;
+  padding: 8px
+}
+
+.messagesContainer::-webkit-scrollbar{
+  display: none;
+}
+
+.messagesContainerHiddenScroll::-webkit-scrollbar{
+  display: none;
+}
+
+.message{
+  display: flex;
+  margin-top: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid lightgray;
+}
+
+.dateDisplay{
+  text-align: center;
+  font-weight: 400;
+  color: gray;
+  font-size: medium;
+}
+
+.messageDivHeader{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.messageDivHeaderName{
+  font-weight: 500;
+  margin-right: 8px;
+  font-size: medium;
+}
+
+.messageDivHeaderTime{
+  color: gray;
+  font-weight: 500;
+  font-size: small;
+}
+
+.messageContent{
+  padding: 0px 8px 0px 8px;
+  flex: 1;
+}
+
+.messageDivContent{
+  white-space: pre-wrap;
+  text-align: start;
+}
+
+/* MEssage page */
+
+.floatMessagePage{
+  padding: 4px;
+  padding-bottom: 12px;
+  margin-top: -12px;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.floatMessageArea {
+  /* rgb(246, 245, 245) */
+  background: -webkit-linear-gradient(250deg,white  , white, white, var(--amurse_blueWashed) );
+  padding: 8px;
+  margin-top: 4px;
+  overflow-y: scroll;
+}
+
+.floatMessageArea::-webkit-scrollbar {
+  width:0px;
+}
+
+.mainPageHeader_amurse{
+display: flex;
+justify-content: flex-end;
+font-weight: amurse_bold;
+color: var(--amurse_blue);
+}
+
+
+/* FLOATING MESSAGE AREA */
+.floatingMessageAreaContainer{
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  right: 8px;
+  height: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  
+}
+
+:root{
+--amurse_blue: #1890ff;
+--amurse_blueWashed: #e4f1fd;
+}
+
+
+
+.floatingMessageArea{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background: var(--white,#fff);
+  transition-timing-function: cubic-bezier(0,0,.2,1);
+  transition-duration: 200ms;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0px 0px 5px 1px gray;
+  margin-bottom: 0px;
+}
+
+.floatingMessageAreaHeader{
+
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 8px;
+  min-height: 48px;
+  position: relative;
+  border-bottom: 1px solid black;
+  border-radius: 2px 2px 0 0;
+  cursor: pointer;
+}
+
+.floatingMessageAreaContent{
+  flex-grow: 1;
+  height: 0;
+  position: relative!important;
+  flex-direction: column!important;
+  display: flex!important;
+}
+/* Float message page */
+.floatMessagePage{
+padding: 4px;
+padding-bottom: 12px;
+margin-top: -12px;
+height: 100%;
+overflow-y: hidden;
+}
+
+.floatMessageArea {
+/* rgb(246, 245, 245) */
+background: -webkit-linear-gradient(250deg,white  , white, white, var(--amurse_blueWashed) );
+padding: 8px;
+margin-top: 4px;
+overflow-y: scroll;
+}
+
+.floatMessageArea::-webkit-scrollbar {
+width:0px;
+}
+
+/* Float Message Area */
+.messagesContainer{
+overflow: scroll;
+flex: 1;
+padding: 8px
+}
+
+.messagesContainer::-webkit-scrollbar{
+display: none;
+}
+
+.messagesContainerHiddenScroll::-webkit-scrollbar{
+display: none;
+}
+
+.message{
+display: flex;
+margin-top: 20px;
+padding-bottom: 8px;
+border-bottom: 1px solid lightgray;
+}
+
+.dateDisplay{
+text-align: center;
+font-weight: 400;
+color: gray;
+font-size: medium;
+}
+
+.messageDivHeader{
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+}
+
+.messageDivHeaderName{
+font-weight: 500;
+margin-right: 8px;
+font-size: medium;
+}
+
+.messageDivHeaderTime{
+color: gray;
+font-weight: 500;
+font-size: small;
+}
+
+.messageContent{
+padding: 0px 8px 0px 8px;
+flex: 1;
+}
+
+.messageDivContent{
+white-space: pre-wrap;
+text-align: start;
+}
+
+
+
+.ant-scrolling-effect{
+overflow: visible !important;
+}
+
+
+
+
+.textItalic {
+font-style: italic;
+}
+
+.amurse_textBig{
+  font-size: x-large;
+}
+
+.amurse_textMed{
+font-size: medium;
+}
+
+.amurse_textHuge{
+font-size: xx-large;
+}
+
+.amurse_text500{
+font-weight: 500;
+}
+.amurse_bold{
+font-weight: bold;
+}
+
+.amurse_sectionTitle {
+font-size: x-large;
+}
+
+.amurse_blue{
+color: var(--amurse_blue);
+}
+
+.amurse_whiteBackground {
+background-color: white;
+}
+
+.amurse_unselectable {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+.amurse_hover {
+cursor: pointer;
+}
+
+.amurse_hover:hover {
+background-color: rgb(243, 243, 243);
+}
+
+.amurse_red{
+color: var(--red);
+}
+
+.amurse_darkGold{
+color: var(--darkgold);
+}
+
+.amurse_gray {
+color: gray;
+}
+
+.amurse_black {
+color: black;
+}
+
+
+
+
+
+.amurse_padding8{
+padding: 8px;
+}
+
+.amurse_padHorSmall {
+padding: 0px 12px;
+}
+
+.amurse_padHorMed {
+padding: 0px 24px;
+}
+
+
+.amurse_flex{
+display: flex;
+}
+
+.amurse_flexCol {
+flex-direction: column;
+}
+
+.amurse_flex1 {
+flex: 1;
+}
+
+.amurse_justifyCenter{
+justify-content: center;
+}
+
+.amurse_justifySpaced{
+justify-content: space-between;
+}
+
+.amurse_justifyEvenly {
+justify-content: space-evenly;
+}
+
+.amurse_justifyEnd {
+justify-content: flex-end;
+}
+
+
+.amurse_alignCenter{
+align-items: center;
+}
+
+.amurse_width100{
+width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
 [class^=ant-]::-ms-clear,
 [class*= ant-]::-ms-clear,
 [class^=ant-] input::-ms-clear,

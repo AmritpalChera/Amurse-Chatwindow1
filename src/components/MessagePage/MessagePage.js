@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './MessagePage.css';
 import {Input} from 'antd';
 import {SendOutlined} from '@ant-design/icons';
 import { amurseNPM_axiosChat} from '../helpers/axios/axios'
@@ -7,12 +6,13 @@ import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
 import { appError, contactButtonClicked } from '../helpers';
 
+
 const MessagePage = (props) => {
-  const { user, chat, setChatData, interCom } = props;
+  const { user, chat, setChatData, interCom, tag } = props;
   const [message, setMessage] = useState();
 
-  const getConversation = () => {
-    contactButtonClicked({senderAddress: user.address, receiverAddress: chat.receiverAddress}, setChatData, user)
+  const getConversation = async () => {
+    await contactButtonClicked({senderAddress: user.address, receiverAddress: chat.receiverAddress}, setChatData, user)
   }  
 
   const addChatMessage = (data) => {
@@ -29,10 +29,10 @@ const MessagePage = (props) => {
     }
     const messages = (await amurseNPM_axiosChat.post('/getMessages',
       { convoId: chat.userConversation?._id })).data;
-    const userConvo = { ...chat.userConversation, messages: messages }
+    const userConvo = { ...chat.userConversation, messages: messages, signature: user.signature }
     let newChat = chat;
     newChat.userConversation = userConvo;
-      setChatData(newChat);
+    setChatData(newChat);
   };
 
   // EXISTING MESSAGES
@@ -40,12 +40,14 @@ const MessagePage = (props) => {
     if (!chat.userConversation?._id) {
       getConversation();
     };
-    return () => setChatData({ receiverAddress: null, userConversation: {} });
     // eslint-disable-next-line
   }, [chat.receiverAddress]);
 
   useEffect(() => {
-    if (chat.userConversation?._id) getMessages();
+    if (chat.userConversation && chat.userConversation._id) {
+      getMessages();
+    }
+   
   }, [chat.userConversation && chat.userConversation._id])
 
   // PUSHER - NEW MESSAGES
@@ -66,11 +68,11 @@ const MessagePage = (props) => {
       chat.userConversation?._id &&
         pusher.unsubscribe(chat.userConversation._id);
     };
-  }, [chat.userConversation]);
+  }, [chat.userConversation && chat.userConversation._id]);
   // ______________________________________________________________________
 
 
-  const returnToMain = () => setChatData({ receiverAddress: '' });
+  const returnToMain = () => setChatData({ receiverAddress: '', userConversation: {} });
 
   const header = () => {
     return (
@@ -89,6 +91,8 @@ const MessagePage = (props) => {
       owner: user._id,
       convoId: chat.userConversation._id,
       convoIndex: chat.userConversation.index || 0,
+      subject: tag,
+      signature: user.signature
     });
     setMessage('');
   };

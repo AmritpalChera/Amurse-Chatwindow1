@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import { Avatar } from 'antd';
-import './FloatMessageArea.css'
 import {UserOutlined} from '@ant-design/icons';
 import { formattedWalletAddress } from '../helpers';
 
@@ -16,6 +15,7 @@ const FloatMessageArea = (props) => {
     return <div ref={elementRef} />;
   };
 
+
   const getFormattedMessage = (message, index) => {
     let messageAvatar;
     let displayName;
@@ -28,16 +28,20 @@ const FloatMessageArea = (props) => {
     let date = new Date(message.created_at).toLocaleTimeString('en-us', {hour: "2-digit", minute: '2-digit'});
 
     let previousMessageDate;
+    let previousMessageSubject;
     if (index > 0) {
       previousMessageDate = new Date(messages[index - 1].created_at)
-          .toDateString();
+        .toDateString();
+      previousMessageSubject = messages[index - 1].subject;
     }
     const thisMessageDate = message.created_at && new Date(message.created_at).toDateString();
+    const thisMessageSubject = message.subject;
 
     return (
       <div className="messageContainer" key={index}>
         {previousMessageDate !== thisMessageDate &&
           <div className="dateDisplay">{thisMessageDate}</div>}
+        {thisMessageSubject !== previousMessageSubject && <div className='amurse_blue amurse_width100 amurse_flex amurse_justifyCenter amurse_bold amurse_textCenter'>{thisMessageSubject || 'Messages'}</div>}
         <div className="message">
           <div className="messageAvatar">
             <Avatar

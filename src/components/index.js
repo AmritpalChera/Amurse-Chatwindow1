@@ -6,8 +6,6 @@ import React,  {
 import {TiArrowSortedDown, TiArrowSortedUp,
 } from 'react-icons/ti';
 import { appError, appMessage } from './helpers';
-import './antd.css';
-import './FloatingMessageArea.css';
 
 
 
@@ -15,19 +13,22 @@ import MainPage from './MainPage/MainPage';
 import MessagePage from './MessagePage/MessagePage'
 import ConnectWallet, { connectSilentlyMetamask } from './Connect/ConnectWallet';
 import { signMessageMetamask } from './Connect/SignMessage';
-export let userAddress = '';
+import PusherLoader from './Pusher';
 
 // Don't render this on mobile
 export const ChatWindow = (props) => {
-  const { interCom, receiverToken } = props;
+  const { interCom, receiverToken, customAddress, refresh, tag } = props;
 
   const [loading, setLoading] = useState(true);
 
-  const [chat, setChat] = useState({ });
+  const [chat, setChat] = useState({ tag: tag });
   const setChatData = (data) => setChat({...chat, ...data});
 
   const [user, setUser] = useState({});
   const setUserData = (data) => { setUser({ ...user, ...data }) };
+
+  const [mounted, setMounted] = useState(false);
+  const [pusherMounted, setPusherMounted] = useState(false);
 
 
   const validateToken = async () => {
@@ -41,7 +42,13 @@ export const ChatWindow = (props) => {
 
   useEffect(() => {
     if (user._id) validateToken();
-  }, [user._id])
+  }, [user._id]);
+
+  useEffect(() => {
+    if (customAddress && !interCom && user.address) {
+      setChatData({ receiverAddress: customAddress, open: true, userConversation: {} })
+    }
+  }, [refresh])
   
 
 
@@ -59,12 +66,19 @@ export const ChatWindow = (props) => {
 
   useEffect(() => {
     connectSilentlyMetamask(setUserData, appError)
+    setMounted(true);
   }, []);
 
 
   const getUser = async () => {
-    const signature = await signMessageMetamask('PLEASE VERIFY OWNERSHIP', user.address);
-    let userInfo = (await axiosUser.post('/login', { address: user.address, signature: signature })).data;
+    const https = window.location.protocol === 'https:';
+    let userInfo;
+    if(https) userInfo = await axiosUser.post('/loginValidate', { address: user.address }).then((res => res.data))
+    let signature;
+    if (!userInfo || !userInfo._id) {
+      signature = await signMessageMetamask('PLEASE VERIFY OWNERSHIP', user.address);
+      userInfo = (await axiosUser.post('/login', { address: user.address, signature: signature })).data;
+    }
     setUser({...userInfo, signature})
     //after getting user, get conversation
   }
@@ -104,18 +118,19 @@ export const ChatWindow = (props) => {
             </div>
             <div className='amurse_padHorSmall'><ToggleButton /></div>
             
-            <ConnectWallet setUserData={setUserData} setChatData={setChatData} />
+            {mounted && <ConnectWallet setUserData={setUserData} setChatData={setChatData} />}
           </div>
-          {user && !chat.receiverAddress && !interCom && <MainPage user={user} setChatData={setChatData} />}
-          {chat.receiverAddress && user.signature &&  <MessagePage
+          {mounted && user && user._id && !chat.receiverAddress && !interCom && pusherMounted &&  <MainPage user={user} setChatData={setChatData} />}
+          {mounted && chat.receiverAddress && pusherMounted && <MessagePage
             chat={chat}
             setChatData={setChatData}
             user={user}
             interCom={interCom}
+            tag={tag}
           />}
         </div>
-
       </div>
+      {user.address && chat.open && <PusherLoader setPusherMounted={setPusherMounted} />}
     </div>
 
   );

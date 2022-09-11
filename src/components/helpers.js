@@ -4,8 +4,14 @@ import Web3 from 'web3';
 
 
 export function openInNewTab(url) {
+  if (!window) return;
   window.open(url, '_blank');
+};
+
+export const getAddressKey = () => {
+  return Math.floor(Math.random() * 300);
 }
+
 
 export const appMessage = (msg) => {
   return message.info({content: msg, className: 'messageAntd'});
@@ -36,5 +42,6 @@ export const contactButtonClicked = async (data, setChat, user) => {
   if (!conversation) conversation = (await amurseNPM_axiosChat.post('/createConversation', {addresses: [receiverAddress, senderAddress], address: senderAddress, signature: user.signature})).data;
   if (conversation) setChat({ receiverAddress: receiverAddress, userConversation: conversation });
   else appError('Something went wrong');
+  return;
 };
 
