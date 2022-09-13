@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Input} from 'antd';
 import {SearchOutlined} from '@ant-design/icons';
-import { amurseNPM_axiosChat } from '../helpers/axios/axios';
 import ConversationCard from './ConversationCard';
-import { appMessage, contactButtonClicked,  } from '../helpers';
+import { appMessage } from '../helpers';
 import { validateAddressEthereum } from '../Connect/ConnectWallet';
-import {pusher} from '../Pusher';
+import { pusher } from '../Pusher';
+import {getConversation, getConversations} from '@amurse/chat_sdk';
 
 const MainPage = (props) => {
   const { user, setChatData } = props;
@@ -62,16 +62,15 @@ const MainPage = (props) => {
     };
   }, [user.address]);
 
-  const getConversations = async () => {
+  const fetchConversations = async () => {
     //get wallet conversations
-    let convos = await amurseNPM_axiosChat.post('/getConversations', { address: user.address, signature: user.signature })
-      .then((res) => res.data).catch(err => console.log(err));
+    let convos = await getConversations({ address: user.address, signature: user.signature }, (err) => {console.log(err)})
     //set wallet conversations
     if (convos) setConversations(convos);
   }
 
   useEffect(() => {
-    getConversations();
+    fetchConversations();
   }, []);
 
   const NoConversations = () => (
@@ -80,9 +79,10 @@ const MainPage = (props) => {
     </div>
   );
 
-  const searchConversation = () => {
+  const searchConversation = async () => {
     if (!validateAddressEthereum(newAddress)) appMessage('Invalid Address');
-    return contactButtonClicked({senderAddress: user.address, receiverAddress: newAddress}, setChatData, user) 
+    let convo = await getConversation({ address: user.address, receiverAddress: newAddress, signature: user.signature }, (err)=>{console.log(err)});
+    setChatData({ receiverAddress: newAddress, userConversation: convo });
   }
 
 

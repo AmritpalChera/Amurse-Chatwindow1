@@ -1,29 +1,19 @@
 import React, { useEffect } from 'react';
-import Web3 from 'web3';
+import {MetaMask} from '@amurse/connect_sdk';
+
 
 //validate ethreum address
 export const validateAddressEthereum = async (address) => {
-  const valid = await Web3.utils.isAddress(address);
+  const valid = await MetaMask.validateAddress(address);
   return valid;
 }
 
 // if metamask already connected, return updated account
 export const connectSilentlyMetamask = async (setUserData, errorHandler) => {
-  if (window && window.ethereum) {
-    window.web3 = new Web3(window.ethereum);
-    const web3 = window.web3;
-    const networkId = await window.web3.eth.getChainId();
-    let accounts;
-    await web3.eth.getAccounts((err, result) => {
-      if (err) return console.log(err)
-      accounts = result;
-    });
-    if (networkId && networkId !== 1) {
-      errorHandler('Please change netowrk to ETH Mainnet');
-      return;
-    }
-    setUserData && setUserData({ address: accounts[0] });
-    return accounts[0]
+  let connectedAccount = await MetaMask.connectSilently(errorHandler);
+  if (connectedAccount) {
+    setUserData && setUserData({ address: connectedAccount });
+    return connectedAccount;
   }
   return null;
 }

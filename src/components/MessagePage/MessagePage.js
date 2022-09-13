@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Input} from 'antd';
 import {SendOutlined} from '@ant-design/icons';
-import { amurseNPM_axiosChat} from '../helpers/axios/axios'
 import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
-import { appError, contactButtonClicked } from '../helpers';
+import { appError } from '../helpers';
+import { createMessage, getConversation, getMessages } from '@amurse/chat_sdk';
 
 
 const MessagePage = (props) => {
   const { user, chat, setChatData, interCom, tag } = props;
   const [message, setMessage] = useState();
 
-  const getConversation = async () => {
-    await contactButtonClicked({senderAddress: user.address, receiverAddress: chat.receiverAddress}, setChatData, user)
+  const fetchConversation = async () => {
+    let convo = await getConversation({ address: user.address, receiverAddress: chat.receiverAddress, signature: user.signature }, (err)=>{console.log(err)});
+    setChatData({ userConversation: convo });
   }  
 
   const addChatMessage = (data) => {
@@ -22,14 +23,13 @@ const MessagePage = (props) => {
     setChatData({...chat, userConversation: {...chat.userConversation, messages: messages}});
   };
 
-  const getMessages = async () => {
+  const fetchMessages = async () => {
     if (!chat.userConversation?._id) {
       appError('something went wrong')
       return;
     }
-    const messages = (await amurseNPM_axiosChat.post('/getMessages',
-      { convoId: chat.userConversation?._id })).data;
-    const userConvo = { ...chat.userConversation, messages: messages, signature: user.signature }
+    const messages = (await getMessages({ convoId: chat.userConversation?._id }));
+    const userConvo = { ...chat.userConversation, messages: messages }
     let newChat = chat;
     newChat.userConversation = userConvo;
     setChatData(newChat);
@@ -38,14 +38,14 @@ const MessagePage = (props) => {
   // EXISTING MESSAGES
   useEffect(() => {
     if (!chat.userConversation?._id) {
-      getConversation();
+      fetchConversation();
     };
     // eslint-disable-next-line
   }, [chat.receiverAddress]);
 
   useEffect(() => {
     if (chat.userConversation && chat.userConversation._id) {
-      getMessages();
+      fetchMessages();
     }
    
   }, [chat.userConversation && chat.userConversation._id])
@@ -86,18 +86,18 @@ const MessagePage = (props) => {
   };
 
   const submitMessage = async () => {
-    await amurseNPM_axiosChat.post('/createMessage', {
+    if (!message) console.log('No Message Content');
+    await createMessage({
       address: user.address, text: message,
       owner: user._id,
       convoId: chat.userConversation._id,
       convoIndex: chat.userConversation.index || 0,
       subject: tag,
-      signature: user.signature
     });
     setMessage('');
   };
 
-  const createMessage = () => {
+  const MessageInput = () => {
     return (
       <div className='floatCreateMessage'>
         <Input
@@ -120,7 +120,7 @@ const MessagePage = (props) => {
     <div className='floatMessagePage amurse_flex amurse_flexCol'>
       {header()}
       <FloatMessageArea chat={chat} user={user}/>
-      {createMessage()}
+      {MessageInput()}
     </div>
 
   );

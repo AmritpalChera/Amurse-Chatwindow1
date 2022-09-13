@@ -1,5 +1,5 @@
 
-import { axiosAccess, axiosUser } from './helpers/axios/axios'
+import { amurseNPM_axiosAccess, amurseNPM_axiosUser } from './helpers/axios/axios'
 import React,  {
   useEffect, useState,
 } from 'react';
@@ -14,10 +14,12 @@ import MessagePage from './MessagePage/MessagePage'
 import ConnectWallet, { connectSilentlyMetamask } from './Connect/ConnectWallet';
 import { signMessageMetamask } from './Connect/SignMessage';
 import PusherLoader from './Pusher';
+import { initializeChatSDK } from '@amurse/chat_sdk';
+
 
 // Don't render this on mobile
 export const ChatWindow = (props) => {
-  const { interCom, receiverToken, customAddress, refresh, tag } = props;
+  const { interCom, receiverToken, customAddress, refresh, tag, dev } = props;
 
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +34,7 @@ export const ChatWindow = (props) => {
 
 
   const validateToken = async () => {
-    let tokenAddress = await axiosAccess.post('/validateToken', { token: receiverToken });
+    let tokenAddress = await amurseNPM_axiosAccess.post('/validateToken', { token: receiverToken });
     const toSet = { ...chat, ownerAddress: tokenAddress.data };
     if (interCom) toSet.receiverAddress = toSet.ownerAddress;
     if (tokenAddress.data) setChat(toSet);
@@ -73,14 +75,15 @@ export const ChatWindow = (props) => {
   const getUser = async () => {
     const https = window.location.protocol === 'https:';
     let userInfo;
-    if(https) userInfo = await axiosUser.post('/loginValidate', { address: user.address }).then((res => res.data))
+    if(https) userInfo = await amurseNPM_axiosUser.post('/loginValidate', { address: user.address }).then((res => res.data))
     let signature;
     if (!userInfo || !userInfo._id) {
       signature = await signMessageMetamask('PLEASE VERIFY OWNERSHIP', user.address);
-      userInfo = (await axiosUser.post('/login', { address: user.address, signature: signature })).data;
+      userInfo = (await amurseNPM_axiosUser.post('/login', { address: user.address, signature: signature })).data;
     }
     setUser({...userInfo, signature})
-    //after getting user, get conversation
+    //after getting user, get conversation, but intialize chatsdk first
+    initializeChatSDK({accessToken: receiverToken, walletSignature: signature, dev: !!dev})
   }
 
   useEffect(() => {

@@ -25,7 +25,7 @@ function App() {
         setAddress('0x698FbAACA64944376e2CDC4CAD86eaa91362cF54')
         refresh();
       }}>Set Address</Button>
-      <FloatingMessageArea receiverToken={token} interCom={false} customAddress={address} refresh={refreshChat} tag={'Test Messages'} />
+      <FloatingMessageArea receiverToken={token} interCom={false} customAddress={address} refresh={refreshChat} tag={'Test Messages'} dev={true} />
     </div>
  
   );
