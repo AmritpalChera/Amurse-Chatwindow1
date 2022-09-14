@@ -4,15 +4,14 @@ import {SendOutlined} from '@ant-design/icons';
 import {pusher} from '../Pusher';
 import FloatMessageArea from './FloatMessageArea';
 import { appError } from '../helpers';
-import { createMessage, getConversation, getMessages } from '@amurse/chat_sdk';
-
+import { chatSDK } from '../helpers/chat';
 
 const MessagePage = (props) => {
   const { user, chat, setChatData, interCom, tag } = props;
   const [message, setMessage] = useState();
 
   const fetchConversation = async () => {
-    let convo = await getConversation({ address: user.address, receiverAddress: chat.receiverAddress, signature: user.signature }, (err)=>{console.log(err)});
+    let convo = await chatSDK.getConversation({ address: user.address, receiverAddress: chat.receiverAddress, signature: user.signature }, (err)=>{console.log(err)});
     setChatData({ userConversation: convo });
   }  
 
@@ -28,7 +27,7 @@ const MessagePage = (props) => {
       appError('something went wrong')
       return;
     }
-    const messages = (await getMessages({ convoId: chat.userConversation?._id }));
+    const messages = (await chatSDK.getMessages({ convoId: chat.userConversation?._id }));
     const userConvo = { ...chat.userConversation, messages: messages }
     let newChat = chat;
     newChat.userConversation = userConvo;
@@ -87,7 +86,7 @@ const MessagePage = (props) => {
 
   const submitMessage = async () => {
     if (!message) console.log('No Message Content');
-    await createMessage({
+    await chatSDK.createMessage({
       address: user.address, text: message,
       owner: user._id,
       convoId: chat.userConversation._id,

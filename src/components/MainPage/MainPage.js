@@ -5,7 +5,7 @@ import ConversationCard from './ConversationCard';
 import { appMessage } from '../helpers';
 import { validateAddressEthereum } from '../Connect/ConnectWallet';
 import { pusher } from '../Pusher';
-import {getConversation, getConversations} from '@amurse/chat_sdk';
+import { chatSDK } from '../helpers/chat';
 
 const MainPage = (props) => {
   const { user, setChatData } = props;
@@ -64,7 +64,7 @@ const MainPage = (props) => {
 
   const fetchConversations = async () => {
     //get wallet conversations
-    let convos = await getConversations({ address: user.address, signature: user.signature }, (err) => {console.log(err)})
+    let convos = await chatSDK.getConversations({ address: user.address, signature: user.signature }, (err) => {console.log(err)})
     //set wallet conversations
     if (convos) setConversations(convos);
   }
@@ -81,7 +81,7 @@ const MainPage = (props) => {
 
   const searchConversation = async () => {
     if (!validateAddressEthereum(newAddress)) appMessage('Invalid Address');
-    let convo = await getConversation({ address: user.address, receiverAddress: newAddress, signature: user.signature }, (err)=>{console.log(err)});
+    let convo = await chatSDK.getConversation({ address: user.address, receiverAddress: newAddress, signature: user.signature }, (err)=>{console.log(err)});
     setChatData({ receiverAddress: newAddress, userConversation: convo });
   }
 
@@ -104,7 +104,7 @@ const MainPage = (props) => {
 
 
       </div>
-      <div className='recentConvos' style={{height: '70vh', marginTop: '8px'}}>
+      <div className='amurse_recentConvos' style={{height: '70vh', marginTop: '8px'}}>
         {
           conversations[0] ? conversations.map((convo, index) =>
             convo && convo._id && <ConversationCard key={index} index={index} convo={convo} setChatData={setChatData} userAddress={user.address} />)

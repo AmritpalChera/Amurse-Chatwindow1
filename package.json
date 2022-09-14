@@ -1,6 +1,6 @@
 {
   "name": "@amurse/chatwindow",
-  "version": "0.0.44",
+  "version": "0.0.48",
   "description": "frontend chat window for Amurse",
   "private": false,
   "files": [
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@amurse/axios_sdk": "^1.0.1",
-    "@amurse/chat_sdk": "^1.0.16",
+    "@amurse/chat_sdk": "^1.0.24",
     "@amurse/connect_sdk": "^1.0.1",
     "@amurse/signer_sdk": "^1.0.2",
     "@ant-design/icons": "^4.7.0",

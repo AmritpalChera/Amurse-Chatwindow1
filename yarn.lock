@@ -17,10 +17,10 @@
   dependencies:
     axios "^0.27.2"
 
-"@amurse/chat_sdk@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@amurse/chat_sdk/-/chat_sdk-1.0.16.tgz#10865382a9012e22689dcbb1a151c8f2796cecfe"
-  integrity sha512-OX8PZBYS790rxKVA10CCUr/b+JZUUxvBsiMW75m33B6nxoQq8Vj9rgOy3e+zAcNk7kyuPGzh282yr/GOTsmHhA==
+"@amurse/chat_sdk@^1.0.24":
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/@amurse/chat_sdk/-/chat_sdk-1.0.24.tgz#9d5b70e5fae6728301a582cf7abe1c68e2851987"
+  integrity sha512-URYnh0w8nSJjzrZYbXhYfHyYZ6YoL2JwcX+9XGl+PBZmK4Z6WY//QjCY0anCwjjze+tG9dd6vbZ/t/pNQEojIQ==
   dependencies:
     "@amurse/axios_sdk" "^1.0.1"
     axios "^0.27.2"

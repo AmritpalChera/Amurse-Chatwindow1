@@ -14,7 +14,7 @@ import MessagePage from './MessagePage/MessagePage'
 import ConnectWallet, { connectSilentlyMetamask } from './Connect/ConnectWallet';
 import { signMessageMetamask } from './Connect/SignMessage';
 import PusherLoader from './Pusher';
-import { initializeChatSDK } from '@amurse/chat_sdk';
+import { initializeChatSDK } from './helpers/chat';
 
 
 // Don't render this on mobile
@@ -73,9 +73,9 @@ export const ChatWindow = (props) => {
 
 
   const getUser = async () => {
-    const https = window.location.protocol === 'https:';
-    let userInfo;
-    if(https) userInfo = await amurseNPM_axiosUser.post('/loginValidate', { address: user.address }).then((res => res.data))
+    
+    let userInfo = await amurseNPM_axiosUser.post('/loginValidate', { address: user.address }).then((res => res.data))
+    .catch(() => null)
     let signature;
     if (!userInfo || !userInfo._id) {
       signature = await signMessageMetamask('PLEASE VERIFY OWNERSHIP', user.address);
