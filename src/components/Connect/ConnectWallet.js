@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import {MetaMask} from '@amurse/connect_sdk';
+import {AmurseConnectMetamask} from '@amurse/connect_sdk';
 
+const allowedChains = [1, 137, 43114, 56, 42161, 10, 25, 250, 100, 1313161554, 42220, 1285, 9001, 1666600000];
+const MetaMask = new AmurseConnectMetamask({allowedNetworks: allowedChains})
 
 //validate ethreum address
 export const validateAddressEthereum = async (address) => {
@@ -18,29 +19,10 @@ export const connectSilentlyMetamask = async (setUserData, errorHandler) => {
   return null;
 }
 
-
-// auto updates accounts when they are changed
-const ConnectWallet = (props) => {
-  const { setUserData, redirect, setChatData } = props;
-  const ethereum = window.ethereum;
-
-
-  useEffect(() => {
-    if (ethereum) {
-      ethereum.on('accountsChanged', (accounts) => {
-        setUserData && setUserData({ address: accounts[0] });
-        setChatData && setChatData({ open: false });
-        if (!accounts[0]) console.log('No Accounts detected');
-      });
-      ethereum.on('disconnect', () => {console.log('user has disconnects')});
-    }
-    // eslint-disable-next-line
-  }, [ethereum]);
-  return (
-    <div>
-      <span></span>
-    </div>
-  )
+export const bindChanges = (setUserData, setChatData) => {
+  MetaMask.bindChanges({ accounts: true, chain: true }, (data) => {
+    setUserData({ address: '' });
+    setChatData({ open: false });
+    connectSilentlyMetamask(setUserData, (msg) => {console.log(msg)})
+  })
 }
-
-export default ConnectWallet

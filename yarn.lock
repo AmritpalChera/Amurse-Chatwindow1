@@ -26,10 +26,10 @@
     axios "^0.27.2"
     web3 "^1.7.5"
 
-"@amurse/connect_sdk@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@amurse/connect_sdk/-/connect_sdk-1.0.1.tgz#64de0a895145a97cbd281fee696b71a35ca24ba5"
-  integrity sha512-2Ao323+G5ECpyr2zgiSuXlcfszzXr3iMSOat95XfM4ftCpfbj08StP2jEi9DVBzfTMq9hPB0bJD/SL29iihCXQ==
+"@amurse/connect_sdk@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@amurse/connect_sdk/-/connect_sdk-1.0.6.tgz#6a47fcdfc64bce01a329b0ef258f650667d31024"
+  integrity sha512-52/2nGgdUqkMwnystDcay9GrSOjH4dn+sXZNvzDMRqUetLLU1T+owd30qHUGqEoteAhyY6DhNuIOVaKk97ISnQ==
   dependencies:
     web3 "^1.7.5"
 

@@ -1,71 +1,18 @@
-# Getting Started with Create React App
+# Amurse-Chatwindow
+Easy to integrate bias chat window fow react and nextJS clients. Allow wallet-to-wallet communication on your website. 
+Increase your website's funcationality, value, and overall engagement. 
+This chat window is implemented using the Amurse chat SDK which communicates with Amurse API to enable chat features.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+This is a ReactJS window that you can integrate into any React frontend. It is very simple to integrate, and was built with security and user-experience in mind. 
 
-In the project directory, you can run:
+Full disclosure: the data currently is stored off-chain in MongoDB servers as most people we’ve surveyed prioritize functionality, however, we are continuously looking into permanent storage databases to best fit the needs of our customers. All user authentication is done through crypto wallets.
 
-### `yarn start`
+Note that before you are able to integrate our API, **you will need to be whitelisted by our team-members**. We are only selecting quality applications which are building the future of the internet. Please reach out to us through [amurse.com](https://amurse.com) and click ‘Get Token’ button.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ Also more customizations are on the way!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ReactJS Code
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Amurse-Chatwindow1
+Run ```yarn add @amurse/chatwindow``` in the terminal. to install chatwinddow. 
+Please review our docs to review the implementation [here](https://amurse.notion.site/amurse/AMURSE-DOCS-007ea171e82e420dbd5070b3680859fc)

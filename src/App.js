@@ -5,7 +5,7 @@ import './components/styles.css'
 
 import FloatingMessageArea from './components/index';
 
-const token = "lPZWvkJgs9ivGrh6NefXvYS7wrUpSxtTiUqMDtBxVOvwgULnTWaqrkoQaidm";
+const devToken = "lPZWvkJgs9ivGrh6NefXvYS7wrUpSxtTiUqMDtBxVOvwgULnTWaqrkoQaidm";
 function App() {
 
   const handleAccounts = async () => {
@@ -25,7 +25,7 @@ function App() {
         setAddress('0x698FbAACA64944376e2CDC4CAD86eaa91362cF54')
         refresh();
       }}>Set Address</Button>
-      <FloatingMessageArea receiverToken={token} interCom={false} customAddress={address} refresh={refreshChat} tag={'Test Messages'} dev={true} />
+      <FloatingMessageArea receiverToken={devToken} interCom={false} customAddress={address} refresh={refreshChat} tag={'Test Messages'} dev={true} />
     </div>
  
   );

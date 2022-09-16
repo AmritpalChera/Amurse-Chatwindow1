@@ -11,7 +11,7 @@ import { appError, appMessage } from './helpers';
 
 import MainPage from './MainPage/MainPage';
 import MessagePage from './MessagePage/MessagePage'
-import ConnectWallet, { connectSilentlyMetamask } from './Connect/ConnectWallet';
+import { bindChanges, connectSilentlyMetamask } from './Connect/ConnectWallet';
 import { signMessageMetamask } from './Connect/SignMessage';
 import PusherLoader from './Pusher';
 import { initializeChatSDK } from './helpers/chat';
@@ -19,7 +19,7 @@ import { initializeChatSDK } from './helpers/chat';
 
 // Don't render this on mobile
 export const ChatWindow = (props) => {
-  const { interCom, receiverToken, customAddress, refresh, tag, dev } = props;
+  const { interCom, receiverToken, customAddress, refresh, tag, dev, errHandler, msgHandler } = props;
 
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,7 @@ export const ChatWindow = (props) => {
     const toSet = { ...chat, ownerAddress: tokenAddress.data };
     if (interCom) toSet.receiverAddress = toSet.ownerAddress;
     if (tokenAddress.data) setChat(toSet);
-    else appError("Couldn't validate token");
+    else errHandler ? errHandler ("Couldn't validate token") : appError("Couldn't validate token");
     setLoading(false);
   }
 
@@ -55,9 +55,9 @@ export const ChatWindow = (props) => {
 
 
   const toggleFloat = () => {
-    if (!user.address) return appMessage('Connect Wallet');
-    else if (loading) return appMessage('Loading...')
-    else if (!chat.ownerAddress) return appMessage('Service down')
+    if (!user.address) return msgHandler? msgHandler('Connect Wallet') : appMessage('Connect Wallet');
+    else if (loading) return msgHandler? msgHandler('Loading...') : appMessage('Loading...')
+    else if (!chat.ownerAddress) return msgHandler? msgHandler('Service down') : appMessage('Service down')
     setChat({...chat, open: !chat.open});
   };
 
@@ -67,7 +67,7 @@ export const ChatWindow = (props) => {
   };
 
   useEffect(() => {
-    connectSilentlyMetamask(setUserData, appError)
+    connectSilentlyMetamask(setUserData, errHandler || appError)
     setMounted(true);
   }, []);
 
@@ -121,7 +121,7 @@ export const ChatWindow = (props) => {
             </div>
             <div className='amurse_padHorSmall'><ToggleButton /></div>
             
-            {mounted && <ConnectWallet setUserData={setUserData} setChatData={setChatData} />}
+            {mounted && bindChanges(setUserData, setChatData)}
           </div>
           {mounted && user && user._id && !chat.receiverAddress && !interCom && pusherMounted &&  <MainPage user={user} setChatData={setChatData} />}
           {mounted && chat.receiverAddress && pusherMounted && <MessagePage
