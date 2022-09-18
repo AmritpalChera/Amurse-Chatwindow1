@@ -82,7 +82,7 @@ const MainPage = (props) => {
   const searchConversation = async () => {
     if (!validateAddressEthereum(newAddress)) appMessage('Invalid Address');
     let convo = await chatSDK.getConversation({ address: user.address, receiverAddress: newAddress, signature: user.signature }, (err)=>{console.log(err)});
-    setChatData({ receiverAddress: newAddress, userConversation: convo });
+    if(convo) setChatData({ receiverAddress: newAddress, userConversation: convo });
   }
 
 

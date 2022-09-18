@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import './components/styles.css'
 
-import FloatingMessageArea from './components/index';
+import ChatWindow from './components/index';
 
 const devToken = "lPZWvkJgs9ivGrh6NefXvYS7wrUpSxtTiUqMDtBxVOvwgULnTWaqrkoQaidm";
 function App() {
@@ -25,7 +25,17 @@ function App() {
         setAddress('0x698FbAACA64944376e2CDC4CAD86eaa91362cF54')
         refresh();
       }}>Set Address</Button>
-      <FloatingMessageArea receiverToken={devToken} interCom={false} customAddress={address} refresh={refreshChat} tag={'Test Messages'} dev={true} />
+      {/* <FloatingMessageArea receiverToken={devToken} interCom={false} customAddress={address} refresh={refreshChat} tag={'Test Messages'} dev={true} /> */}
+      <ChatWindow
+        receiverToken={`${devToken}`}
+        interCom={false}
+        customAddress={address}
+        refresh={refreshChat}
+        dev={true}
+        tag={"ME: Here is my calendar link"}
+        errHandler={(err) => console.log(err)}
+        msgHandler={(msg) => console.log(msg)}
+      />
     </div>
  
   );

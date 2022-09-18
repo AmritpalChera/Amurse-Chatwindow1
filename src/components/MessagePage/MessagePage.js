@@ -9,10 +9,10 @@ import { chatSDK } from '../helpers/chat';
 const MessagePage = (props) => {
   const { user, chat, setChatData, interCom, tag } = props;
   const [message, setMessage] = useState();
-
+  
   const fetchConversation = async () => {
     let convo = await chatSDK.getConversation({ address: user.address, receiverAddress: chat.receiverAddress, signature: user.signature }, (err)=>{console.log(err)});
-    setChatData({ userConversation: convo });
+    if (convo) setChatData({ userConversation: convo });
   }  
 
   const addChatMessage = (data) => {
@@ -65,7 +65,7 @@ const MessagePage = (props) => {
     }
     return () => {
       chat.userConversation?._id &&
-        pusher.unsubscribe(chat.userConversation._id);
+        pusher.unsubscribe(chat.userConversation?._id);
     };
   }, [chat.userConversation && chat.userConversation._id]);
   // ______________________________________________________________________
@@ -89,7 +89,7 @@ const MessagePage = (props) => {
     await chatSDK.createMessage({
       address: user.address, text: message,
       owner: user._id,
-      convoId: chat.userConversation._id,
+      convoId: chat.userConversation?._id,
       convoIndex: chat.userConversation.index || 0,
       subject: tag,
     });
